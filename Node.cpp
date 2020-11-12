@@ -77,3 +77,11 @@ int Node::getX(){
 int Node::getY(){
     return yPos;
 }
+
+void Node::setX(int xCord){
+    xPos = xCord;
+}
+
+void Node::setY(int yCord){
+    yPos = yCord;
+}

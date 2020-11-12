@@ -19,6 +19,8 @@ class Node {
         void setWest(Node* west);
         void setHit();
         void setShip();
+        void setX(int xCord);
+        void setY(int yCord);
 
 
         private:

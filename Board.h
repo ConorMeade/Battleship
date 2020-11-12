@@ -1,19 +1,23 @@
 #include <string>
 // #include "Node.h"
 
+// class Node;
+
 class Board {
     private:
         int boardHeight;
         int boardWidth;
-        bool player;
+        int player;
+        // int** gameBoard;
         // int** gameBoard;
     public:
-        Board(bool playerNum);
+        Board(int playerNum);
         ~Board();
         int getBoardHeight();
         int getBoardWidth();
         std::string getPlayer();
-        void createGameBoard(int height, int width);
-        void printGameBoard();
-
+        void setPlayer();
+        Node**createGameBoard();
+        void makeAttack(int *x, int *y);
+        void printGameBoard(const Board& board);
 };

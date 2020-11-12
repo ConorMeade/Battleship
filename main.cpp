@@ -18,22 +18,33 @@ int main(){
         cout << a << endl;
     }
 
-    Node aNode = Node(2, 4);
+    Node testNode(0, 8);
 
-    cout << aNode.getX() << endl;
+    cout << testNode.getX() << endl;
+    cout << testNode.getY() << endl;
+    Board playerOneBoard(1);
 
-    cout << aNode.getY() << endl;
 
+    Node** nodeBoard = playerOneBoard.createGameBoard();
 
+    for(int i = 0; i < playerOneBoard.getBoardHeight(); ++i){
+        for(int j = 0; j < playerOneBoard.getBoardWidth(); ++j){
+            cout << "X: " << nodeBoard[i][j].getX() << " Y: " << nodeBoard[i][j].getY() << endl;
+        }
+    }
 
-    // Board gameBoard(false);
-    // int a = gameBoard.getBoardHeight();
+    // for(int i = 0; i < 10; ++i){
+    //     for(int j = 0; j < 10; ++j){
+    //         cout << (test[i][j]) << endl;
+    //     }
+    // }
+    // Node** a = playerOneBoard.createGameBoard();
 
-    // cout << a << endl;
+    for(int i = 0; i < playerOneBoard.getBoardWidth(); ++i){
+        delete [] nodeBoard[i];
+    }
 
-    // cout << gameBoard.getBoardWidth() << endl;
-
-    // cout << gameBoard.getBoardHeight() << endl;
+    delete [] nodeBoard;
 
     cout << "Hello World" << endl;
     return 0;
