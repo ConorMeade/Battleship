@@ -16,8 +16,7 @@ class Board {
         int getBoardHeight();
         int getBoardWidth();
         std::string getPlayer();
-        void setPlayer();
+        void setPlayer(int newID);
         Node**createGameBoard();
         void makeAttack(int *x, int *y);
-        void printGameBoard(const Board& board);
 };

@@ -1,8 +1,8 @@
+#include <iostream>
+#include <string>
+#include <map>
 #include "Node.h"
 #include "Board.h"
-#include <string>
-
-// class Node(int x, int y);
 
 Board::Board(int playerTF){
     boardHeight = 10;
@@ -31,9 +31,9 @@ std::string Board::getPlayer(){
     return "Player #2";
 }
 
-void Board::setPlayer(){
+void Board::setPlayer(int newID){
     // when a player misses an attack, we swap players and we swap board states
-    player = !player;
+    player = newID;
 }
 
 
@@ -45,24 +45,12 @@ Node** Board::createGameBoard(){
     for(int i = 0; i < boardHeight; ++i){
         nodeBoard[i] = new Node[boardWidth];
         for(int j = 0; j < boardWidth; ++j){
-            nodeBoard[i][j] = Node(i, j);
+            nodeBoard[i][j] = Node(j, i);
         }
     }
     return nodeBoard;
-    // for(int i = 0; i < boardWidth; ++i){
-    //     for(int j = 0; j < boardHeight; ++j){
-    //         nodeBoard[i][j] = Node(i,j);
-    //     }
-    // }
-
-    // return nodeBoard;
 }
 
 void Board::makeAttack(int *x, int *y) {
-
-}
-
-
-void Board::printGameBoard(const Board& board){
 
 }
