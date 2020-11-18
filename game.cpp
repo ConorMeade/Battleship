@@ -4,9 +4,10 @@
 #include <string>
 #include <map>
 #include <set>
+#include "Piece.h"
 #include "Node.h"
 #include "Board.h"
-#include "Piece.h"
+
 
 
 #define KEY_UP 72
@@ -54,7 +55,8 @@ void printGameBoard(Board& board){
 
 }
 
-bool inBounds(int dir, int pieceLength, int x, int y){
+bool collisionCheck(int dir, int pieceLength, int x, int y){
+    // check if we collide with bounds of board or if we collide with another ship
     bool withinGrid = false;
     if(dir == KEY_UP){
         if (y + 1 >= pieceLength)
@@ -97,7 +99,7 @@ void printNodeValues(Node** nodeBoard){
     }
 }
 
-void placeShip(Board& nodeBoard, Piece& gamePiece){
+void placeShip(Node** nodeBoard, Piece& gamePiece){
     std::set<std::string> directions = {"left", "right", "up", "down"};
     int length = gamePiece.getPieceLength();
     int x;
@@ -109,7 +111,8 @@ void placeShip(Board& nodeBoard, Piece& gamePiece){
     std::cin >> y;
     std::cout << "Use arrow keys to indicate direction you want " << gamePiece.getPieceName() << " to face, piece length = " << gamePiece.getPieceLength() << ".";  
     bool validMove = false;
-    while(1)
+    int placedShips = 0;
+    while(!validMove && placedShips < 5)
     {
         direction = 0;
 
@@ -117,67 +120,50 @@ void placeShip(Board& nodeBoard, Piece& gamePiece){
         case KEY_UP:
             std::cout << endl << "Up" << endl;//key up
             direction=KEY_UP;
+            validMove = collisionCheck(direction, gamePiece.getPieceLength(), x, y);
             break;
         case KEY_DOWN:
             std::cout << endl << "Down" << endl;   // key down
             direction=KEY_DOWN;
+            validMove = collisionCheck(direction, gamePiece.getPieceLength(), x, y);
             break;
         case KEY_LEFT:
             std::cout << endl << "Left" << endl;  // key left
             direction=KEY_LEFT;
+            validMove = collisionCheck(direction, gamePiece.getPieceLength(), x, y);
             break;
         case KEY_RIGHT:
             std::cout << endl << "Right" << endl;  // key right
             direction=KEY_RIGHT;
+            validMove = collisionCheck(direction, gamePiece.getPieceLength(), x, y);
             break;
         default:
             std::cout << endl << "null" << endl;  // not arrow
             break;
         }
-
+        placedShips++;
     }
 }
 
 int main(){
-    vector<int> intVector;
-
-    intVector.push_back(1);
-    intVector.push_back(2);
-
-    for(int &a : intVector){
-        std::cout << a << endl;
-    }
-
-    std::vector<Piece> gamePieces = {
-        Piece(1, "Carrier", 5, false),
-        Piece(2, "Battleship", 4, false),
-        Piece(3, "Destroyer", 3, false),
-        Piece(4, "Submarine", 3, false),
-        Piece(5, "Patrol Boat", 2, false)
-    };
-
-    for(Piece p: gamePieces){
-        std::cout << p.getPieceName() << endl;
-    }
-
     Board playerOneBoard(1);
     Board playerTwoBoard(2);
+
+    std::vector<Piece> g = playerOneBoard.getGamePieces();
+    // std::cout << playerOneBoard.getTopRowMap() << std::endl;
+    // for(const auto & [key, value]: playerOneBoard.getTopRowMap()){
+    //     std::cout << key << ": " << value << endl;
+    // }
+    // for()
+    // std::cout << playerOneBoard.getGamePieces() << std::endl;
 
 
     Node** nodeBoardOne = playerOneBoard.createGameBoard();
     Node** nodeBoardTwo = playerTwoBoard.createGameBoard();
-    printNodeValues(nodeBoardOne);
 
-    // std::cout << nodeBoardOne << endl;
-
-    // printGameBoard(playerOneBoard);
-
-
-    // for(int i = 0; i < playerOneBoard.getBoardHeight(); ++i){
-    //     for(int j = 0; j < playerOneBoard.getBoardWidth(); ++j){
-    //         cout << "X: " << nodeBoardOne[i][j].getHit() << " Y: " << nodeBoardOne[i][j].getHit() << endl;
-    //     }
-    // }
+    for(Piece p: playerOneBoard.getGamePieces()){
+        placeShip(nodeBoardOne, p);
+    }
 
     for(int i = 0; i < playerOneBoard.getBoardWidth(); ++i){
         delete [] nodeBoardOne[i];

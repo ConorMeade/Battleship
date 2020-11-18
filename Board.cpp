@@ -1,20 +1,46 @@
 #include <iostream>
 #include <string>
-#include <map>
+#include <vector>
+#include <unordered_map>
+#include "Piece.h"
 #include "Node.h"
 #include "Board.h"
+
 
 Board::Board(int playerTF){
     boardHeight = 10;
     boardWidth = 10;
     player = playerTF;
-    // need hash to set x values to letters
+    topRowMap[1] = 'A';
+    topRowMap[2] = 'B';
+    topRowMap[3] = 'C';
+    topRowMap[4] = 'D';
+    topRowMap[5] = 'E';
+    topRowMap[6] = 'F';
+    topRowMap[7] = 'G';
+    topRowMap[8] = 'H';
+    topRowMap[9] = 'I';
+    topRowMap[10] = 'J';
+    gamePieces = {
+        Piece(1, "Carrier", 5, false),
+        Piece(2, "Battleship", 4, false),
+        Piece(3, "Destroyer", 3, false),
+        Piece(4, "Submarine", 3, false),
+        Piece(5, "Patrol Boat", 2, false)
+    };
 }
 
 Board::~Board(){
 
 }
 
+const std::vector<Piece>& Board::getGamePieces(){
+    return gamePieces;
+}
+
+const std::unordered_map<int, char>& Board::getTopRowMap(){
+    return topRowMap;
+}
 
 int Board::getBoardWidth(){
     return boardWidth;
@@ -25,7 +51,7 @@ int Board::getBoardHeight(){
 }
 
 std::string Board::getPlayer(){
-    if(!player){
+    if(player == 1){
         return "Player #1";
     }
     return "Player #2";

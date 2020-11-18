@@ -23,15 +23,13 @@ class Node {
         void setY(int yCord);
 
 
-        private:
-            Node* north;
-            Node* south;
-            Node* east;
-            Node* west;
-            int xPos;
-            int yPos;
-            bool ship;
-            bool hit;
-
-
+    private:
+        Node* north;
+        Node* south;
+        Node* east;
+        Node* west;
+        int xPos;
+        int yPos;
+        bool ship;
+        bool hit;
 };
