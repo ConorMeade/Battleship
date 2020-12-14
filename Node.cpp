@@ -3,7 +3,7 @@
 Node::Node(int x, int y){
     xPos = x;
     yPos = y;
-    state = 'X';
+    state = 'O';
     hit = false;
     ship = false;
 
@@ -13,7 +13,7 @@ Node::Node(){
     xPos = 1;
     yPos = 2;
     hit = false;
-    state = 'X';
+    state = 'O';
 }
 
 void Node::setState(char newState){

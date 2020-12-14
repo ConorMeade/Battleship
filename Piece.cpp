@@ -5,11 +5,16 @@
 #include "Piece.h"
 
 
-Piece::Piece(int num, std::string name, int length, bool destroyed){
+Piece::Piece(int num, std::string name, int length, bool destroyed, char state){
     pieceNum = num;
     pieceName = name;
     pieceLength = length;
     destroyed = destroyed;
+    stateLetter = state;
+}
+
+char Piece::getStateLetter(){
+    return stateLetter;
 }
 
 int Piece::getPieceNum(){

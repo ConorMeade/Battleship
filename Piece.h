@@ -2,9 +2,10 @@
 
 class Piece {
     public:
-        Piece(int num, std::string name, int length, bool destroyed);
+        Piece(int num, std::string name, int length, bool destroyed, char state);
         int getPieceNum();
         int getPieceLength();
+        char getStateLetter();
         std::string getPieceName();
         bool isPieceDestroyed();
 
@@ -18,4 +19,5 @@ class Piece {
         std::string pieceName;
         int pieceLength;
         bool destroyed;
+        char stateLetter;
 };
