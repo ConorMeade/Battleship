@@ -45,10 +45,22 @@ void printGameBoard(Board& board){
     }
 
     Node** nodeBoard = board.createGameBoard();
+
+    cout<< "     a b c d e f g h i j"<< endl;
+    cout <<" +-----------------------+"<< endl;
     
     for(int i = 0; i < board.getBoardHeight(); ++i){
+        if(i == 9){
+            std::cout << i+1 << " |";
+        }
+        else{
+            std::cout << " " << i + 1 << " |";
+        }
+        // << "(" << nodeBoard[i][0].getX() << ", " << nodeBoard[i][0].getY() << ")";
         for(int j = 0; j < board.getBoardWidth(); ++j){
-            std::cout << "(" << nodeBoard[i][j].getX() << ", " << nodeBoard[i][j].getY() << ")" << ' ';
+            // std::cout << " (" << nodeBoard[i][j].getX() << ", " << nodeBoard[i][j].getY() << ")" << ' ';
+            std::cout << " " << nodeBoard[i][j].getState();
+            // std::cout << "(" << nodeBoard[i][j].getX() << ", " << nodeBoard[i][j].getY() << ")" << ' ';
         }
         std::cout << std::endl;
     }
@@ -101,6 +113,7 @@ void printNodeValues(Node** nodeBoard){
 }
 
 void placeShip(Node** nodeBoard, Piece& gamePiece){
+    // set node's ship flag to true when we place
     std::set<std::string> directions = {"left", "right", "up", "down"};
     int length = gamePiece.getPieceLength();
     int xPos;
@@ -118,38 +131,55 @@ void placeShip(Node** nodeBoard, Piece& gamePiece){
     {
         direction = 0;
 
-        std::cout << "Use arrow keys (left, right, up, and down) to choose the direction for ship to face";
+        std::cout << "Use arrow keys (left, right, up, and down) to choose the direction for ship to face" << std::endl;
         switch((direction=getch())) {
         case KEY_UP:
             std::cout << "x:" << xPos << " y:" << yPos << std::endl;
             std::cout << endl << "Up" << endl; //key up
             direction=KEY_UP;
             validMove = collisionCheck(direction, gamePiece.getPieceLength(), xPos, yPos);
+            if(!validMove){
+                std::cout << "invalid move, try a different direction";
+            }
             break;
         case KEY_DOWN:
             std::cout << "x:" << xPos << " y:" << yPos << std::endl;
             std::cout << endl << "Down" << endl;   // key down
             direction=KEY_DOWN;
             validMove = collisionCheck(direction, gamePiece.getPieceLength(), xPos, yPos);
+            if(!validMove){
+                std::cout << "invalid move, try a different direction";
+            }
             break;
         case KEY_LEFT:
             std::cout << "x:" << xPos << " y:" << yPos << std::endl;
             std::cout << endl << "Left" << endl;  // key left
             direction=KEY_LEFT;
             validMove = collisionCheck(direction, gamePiece.getPieceLength(), xPos, yPos);
+            if(!validMove){
+                std::cout << "invalid move, try a different direction";
+            }
             break;
         case KEY_RIGHT:
             std::cout << "x:" << xPos << " y:" << yPos << std::endl;
             std::cout << endl << "Right" << endl;  // key right
             direction=KEY_RIGHT;
             validMove = collisionCheck(direction, gamePiece.getPieceLength(), xPos, yPos);
+            if(!validMove){
+                std::cout << "invalid move, try a different direction";
+            }
             break;
         default:
-            std::cout << endl << "null" << endl;  // not arrow
+            // std::cout << endl << "null" << endl;  // not arrow
             validMove = false;
             break;
         }
     }
+}
+
+void makeAttack(Node** nodeBoard, int *x, int *y) {
+    // get node board
+    // set node's 'hit' flag to true when attacking
 }
 
 int main(){
@@ -163,9 +193,10 @@ int main(){
     Node** nodeBoardOne = playerOneBoard.createGameBoard();
     Node** nodeBoardTwo = playerTwoBoard.createGameBoard();
 
-    for(Piece p: playerOneBoard.getGamePieces()){
-        placeShip(nodeBoardOne, p);
-    }
+    // for(Piece p: playerOneBoard.getGamePieces()){
+    //     printGameBoard(playerOneBoard);
+    //     placeShip(nodeBoardOne, p);
+    // }
 
     for(int i = 0; i < playerOneBoard.getBoardWidth(); ++i){
         delete [] nodeBoardOne[i];

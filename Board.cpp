@@ -69,6 +69,7 @@ Node** Board::createGameBoard(){
     Node** nodeBoard = 0;
     nodeBoard = new Node*[boardHeight];
     for(int i = 0; i < boardHeight; ++i){
+        // default constructor for Node class
         nodeBoard[i] = new Node[boardWidth];
         for(int j = 0; j < boardWidth; ++j){
             nodeBoard[i][j] = Node(j, i);

@@ -3,23 +3,21 @@
 Node::Node(int x, int y){
     xPos = x;
     yPos = y;
+    state = 'X';
     hit = false;
     ship = false;
-    north = nullptr;
-    south = nullptr;
-    east = nullptr;
-    west = nullptr;
+
 }
 
 Node::Node(){
     xPos = 1;
     yPos = 2;
     hit = false;
-    ship = false;
-    north = nullptr;
-    south = nullptr;
-    east = nullptr;
-    west = nullptr;
+    state = 'X';
+}
+
+void Node::setState(char newState){
+    state = newState;
 }
 
 void Node::setHit(){
@@ -30,36 +28,8 @@ void Node::setShip(){
     ship = !ship;
 }
 
-void Node::setNorth(Node* north){
-	north = north;
-}
-
-void Node::setSouth(Node* south){
-	south = south;
-}
-
-void Node::setEast(Node* east){
-	east = east;
-}
-
-void Node::setWest(Node* west){
-	west = west;
-}
-
-Node* Node::getNorth(){
-	return north;
-}
-
-Node* Node::getSouth(){
-	return south;
-}
-
-Node* Node::getEast(){
-	return east;
-}
-
-Node* Node::getWest(){
-	return west;
+char Node::getState(){
+    return state;
 }
 
 bool Node::getHit(){
